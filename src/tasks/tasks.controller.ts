@@ -15,11 +15,15 @@ import { TasksService } from './tasks.service';
 import { query } from 'express';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('tasks')
 @Controller('/tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) {}
   @Get()
+  @ApiOperation({summary: 'Get all tasks'})
+  @ApiResponse({status: 200, description: 'Return all tasks' })
   getAllTasks(@Query() query: any) {
     console.log(query);
     return this.tasksService.getTasks();
